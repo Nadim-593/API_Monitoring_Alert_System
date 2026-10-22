@@ -1,0 +1,118 @@
+[
+  {
+    "description": "Case 1: Healthy fast API response",
+    "payload": {
+      "api_name": "PatientDataAPI",
+      "status_code": 200,
+      "response_time_ms": 145,
+      "records_returned": 50
+    },
+    "expected": {
+      "anomalyDetected": false,
+      "reasonCodes": []
+    }
+  },
+  {
+    "description": "Case 2: Degraded Latency (Exceeds 2000ms warning threshold)",
+    "payload": {
+      "api_name": "AppointmentSchedulingAPI",
+      "status_code": 200,
+      "response_time_ms": 2850,
+      "records_returned": 12
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["HIGH_LATENCY"],
+      "severity": "warning"
+    }
+  },
+  {
+    "description": "Case 3: Critical Server Failure (HTTP 500 Internal Server Error)",
+    "payload": {
+      "api_name": "BillingGatewayAPI",
+      "status_code": 500,
+      "response_time_ms": 320,
+      "records_returned": 0,
+      "error_message": "Internal Server Error: Database pool exhausted"
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["HTTP_5XX"],
+      "severity": "critical"
+    }
+  },
+  {
+    "description": "Case 4: Extreme Critical Latency (Exceeds 5000ms critical threshold)",
+    "payload": {
+      "api_name": "LabResultsSyncAPI",
+      "status_code": 200,
+      "response_time_ms": 6400,
+      "records_returned": 5
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["HIGH_LATENCY"],
+      "severity": "high"
+    }
+  },
+  {
+    "description": "Case 5: Unexpected Zero Records under expected-records policy",
+    "payload": {
+      "api_name": "PharmacyInventoryAPI",
+      "status_code": 200,
+      "response_time_ms": 210,
+      "records_returned": 0
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["ZERO_RECORDS"],
+      "severity": "medium"
+    }
+  },
+  {
+    "description": "Case 6: Client Authentication or Routing Error (HTTP 404)",
+    "payload": {
+      "api_name": "ExternalWebhooksAPI",
+      "status_code": 404,
+      "response_time_ms": 85,
+      "records_returned": 0
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["HTTP_4XX"],
+      "severity": "medium"
+    }
+  },
+  {
+    "description": "Case 7: Downstream Request Timeout",
+    "payload": {
+      "api_name": "InsuranceEligibilityAPI",
+      "status_code": 504,
+      "response_time_ms": 10000,
+      "records_returned": 0,
+      "success": false,
+      "error_message": "ETIMEDOUT: Connection timed out after 10000ms"
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["HTTP_5XX", "REQUEST_TIMEOUT", "HIGH_LATENCY"],
+      "severity": "critical"
+    }
+  },
+  {
+    "description": "Case 8: Network Connection Refused",
+    "payload": {
+      "api_name": "TelemetryGateway",
+      "status_code": 502,
+      "response_time_ms": 15,
+      "records_returned": 0,
+      "success": false,
+      "error_message": "connect ECONNREFUSED 10.0.4.15:443"
+    },
+    "expected": {
+      "anomalyDetected": true,
+      "reasonCodes": ["HTTP_5XX", "NETWORK_ERROR"],
+      "severity": "critical"
+    }
+  }
+]

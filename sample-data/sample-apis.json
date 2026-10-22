@@ -1,0 +1,77 @@
+[
+  {
+    "name": "JSONPlaceholder Posts API",
+    "url": "https://jsonplaceholder.typicode.com/posts",
+    "method": "GET",
+    "enabled": true,
+    "intervalSeconds": 60,
+    "timeoutMs": 10000,
+    "headers": {},
+    "thresholds": {
+      "responseTimeMs": 2000,
+      "errorRatePercent": 10,
+      "consecutiveFailures": 3
+    },
+    "tags": ["jsonplaceholder", "posts", "public"]
+  },
+  {
+    "name": "JSONPlaceholder Users API",
+    "url": "https://jsonplaceholder.typicode.com/users",
+    "method": "GET",
+    "enabled": true,
+    "intervalSeconds": 120,
+    "timeoutMs": 10000,
+    "headers": {},
+    "thresholds": {
+      "responseTimeMs": 2000,
+      "errorRatePercent": 10,
+      "consecutiveFailures": 3
+    },
+    "tags": ["jsonplaceholder", "users", "public"]
+  },
+  {
+    "name": "httpbin Status 200",
+    "url": "https://httpbin.org/status/200",
+    "method": "GET",
+    "enabled": true,
+    "intervalSeconds": 30,
+    "timeoutMs": 10000,
+    "headers": {},
+    "thresholds": {
+      "responseTimeMs": 2000,
+      "errorRatePercent": 10,
+      "consecutiveFailures": 3
+    },
+    "tags": ["httpbin", "status", "health"]
+  },
+  {
+    "name": "httpbin Delay 1s",
+    "url": "https://httpbin.org/delay/1",
+    "method": "GET",
+    "enabled": true,
+    "intervalSeconds": 60,
+    "timeoutMs": 10000,
+    "headers": {},
+    "thresholds": {
+      "responseTimeMs": 3000,
+      "errorRatePercent": 10,
+      "consecutiveFailures": 3
+    },
+    "tags": ["httpbin", "delay", "latency"]
+  },
+  {
+    "name": "httpbin UUID",
+    "url": "https://httpbin.org/uuid",
+    "method": "GET",
+    "enabled": true,
+    "intervalSeconds": 45,
+    "timeoutMs": 10000,
+    "headers": {},
+    "thresholds": {
+      "responseTimeMs": 2000,
+      "errorRatePercent": 10,
+      "consecutiveFailures": 3
+    },
+    "tags": ["httpbin", "uuid", "public"]
+  }
+]
